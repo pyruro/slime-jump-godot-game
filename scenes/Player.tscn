@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/character/character.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6.03566, 7.97194 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 5.80138, 1.03954 )
+
+[node name="Player" type="KinematicBody2D"]
+scale = Vector2( 5, 5 )
+collision_layer = 11
+collision_mask = 11
+script = ExtResource( 1 )
+jump_height = 10.0
+jump_time_to_peak = 10.0
+jump_time_to_descend = 10.0
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="RopeDetector" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="RopeCollisionShape2D" type="CollisionShape2D" parent="RopeDetector"]
+modulate = Color( 0.0392157, 0.490196, 0.266667, 1 )
+position = Vector2( 0, 7 )
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="RopeDetector" to="." method="_on_RopeDetector_area_entered"]
