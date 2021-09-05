@@ -50,7 +50,7 @@ points = PoolVector2Array( 64, 64, 0, 64, 0, 0, 64, 0 )
 1/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 259.708, 23.9405 )
+extents = Vector2( 264.409, 23.9405 )
 
 [node name="proto" type="Node2D"]
 script = ExtResource( 5 )
@@ -68,7 +68,7 @@ __meta__ = {
 modulate = Color( 0, 0, 0, 0.219608 )
 tile_set = SubResource( 2 )
 format = 1
-tile_data = PoolIntArray( 65535, 0, 0, 8, 0, 0, 131071, 0, 0, 65544, 0, 0, 196607, 0, 0, 131080, 0, 0, 262143, 0, 0, 196616, 0, 0, 327679, 0, 0, 262152, 0, 0, 393215, 0, 0, 327688, 0, 0, 458751, 0, 0, 393224, 0, 0, 524287, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 589823, 0, 0, 524296, 0, 0, 655359, 0, 0, 589832, 0, 0, 720895, 0, 0, 655368, 0, 0, 786431, 0, 0, 720904, 0, 0, 851967, 0, 0, 786440, 0, 0, 917503, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0 )
+tile_data = PoolIntArray( 65535, 0, 0, 8, 0, 0, 131071, 0, 0, 65544, 0, 0, 196607, 0, 0, 131080, 0, 0, 262143, 0, 0, 196616, 0, 0, 327679, 0, 0, 262152, 0, 0, 393215, 0, 0, 327688, 0, 0, 458751, 0, 0, 393224, 0, 0, 524287, 0, 0, 458760, 0, 0, 589823, 0, 0, 524296, 0, 0, 655359, 0, 0, 589832, 0, 0, 720895, 0, 0, 655368, 0, 0, 786431, 0, 0, 720904, 0, 0, 851967, 0, 0, 786440, 0, 0, 917503, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 851974, 0, 0, 851975, 0, 0, 851976, 0, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
@@ -79,6 +79,10 @@ texture = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 251.724, 401.98 )
+z_index = 1
+speed = 400
+friction = 0.196
+acceleration = 0.205
 jump_height = 150.0
 jump_time_to_peak = 0.3
 jump_time_to_descend = 0.4
@@ -107,16 +111,17 @@ texture = ExtResource( 8 )
 offset = Vector2( 1241.35, 2.73065 )
 flip_h = true
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2( 240, 477 )
 collision_layer = 9
 collision_mask = 9
 
-[node name="Suelo" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -2, 23 )
+[node name="FloorCollision" type="CollisionShape2D" parent="Floor"]
 shape = SubResource( 3 )
 
 [node name="HUD" parent="." instance=ExtResource( 7 )]
+
+[node name="YSort" type="YSort" parent="."]
 
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]

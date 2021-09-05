@@ -23,6 +23,9 @@ func _on_RopeDetector_area_entered(area: Area2D) -> void:
 		emit_signal("hit")
 		print("He chocado con la cuerda")
 
+func lose_life():
+	pass
+
 func get_input():
 	var dir = 0
 	if Input.is_action_pressed("walk_right"):

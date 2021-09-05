@@ -1,11 +1,8 @@
 extends Area2D
 
 
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
+var ciclo_salto = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$CollisionShape2D.disabled = true
 	#position = Vector2(240, 450)
@@ -22,3 +19,9 @@ func _on_AnimatedSprite_frame_changed() -> void:
 		$CollisionShape2D.disabled = false
 	else:
 		$CollisionShape2D.disabled = true
+	if $AnimatedSprite.frame in range(4, 10):
+		z_index = 1
+	else:
+		z_index = 0
+	if $AnimatedSprite.frame == 9:
+		ciclo_salto += 1

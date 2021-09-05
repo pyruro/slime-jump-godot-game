@@ -3,6 +3,8 @@ extends Node2D
 var score
 var difficulty_timer = 0
 var increase_diff = 0
+var seconds = 0
+
 
 func gameover():
 	$ScoreTimer.stop()
@@ -18,10 +20,27 @@ func _ready() -> void:
 	#new_game()
 	pass
 
+func manage_difficulty(delta):
+	if $Cuerda.ciclo_salto > 1 and $Cuerda.ciclo_salto < 25:
+		$Cuerda/AnimatedSprite.speed_scale += delta/60
+	elif $Cuerda.ciclo_salto >= 25 and $Cuerda.ciclo_salto < 35:
+		$Cuerda/AnimatedSprite.speed_scale = 2
+	elif $Cuerda.ciclo_salto >= 35 and $Cuerda.ciclo_salto < 45:
+		$Cuerda/AnimatedSprite.speed_scale = 1.5
+	elif $Cuerda.ciclo_salto >= 45 and $Cuerda.ciclo_salto < 75:
+		$Cuerda/AnimatedSprite.speed_scale = 2.5
+	elif $Cuerda.ciclo_salto >= 75 and $Cuerda.ciclo_salto < 101:
+		$Cuerda/AnimatedSprite.speed_scale = rand_range(1.5,2.5)
+	else:
+		$Cuerda/AnimatedSprite.speed_scale = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta: float) -> void:
+func _process(delta: float) -> void:
+	manage_difficulty(delta)
+	print($Cuerda/AnimatedSprite.speed_scale)
 	#difficulty_timer += delta
+	#seconds = difficulty_timer / 5
+	
 	#increase_diff = float(round(difficulty_timer))/10.0
 	#print(increase_diff)
 
