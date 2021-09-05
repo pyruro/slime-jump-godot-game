@@ -42,6 +42,7 @@ func get_gravity() -> float:
 
 func jump():
 	velocity.y = jump_velocity
+	$jump_sound.play()
 
 func _physics_process(delta: float) -> void:
 	get_input()

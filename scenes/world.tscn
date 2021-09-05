@@ -105,7 +105,7 @@ texture = ExtResource( 8 )
 offset = Vector2( 9.29041, 4.17367 )
 
 [node name="giraCuerda2" type="Sprite" parent="."]
-position = Vector2( -1346.34, 333.446 )
+position = Vector2( -1346.34, 337 )
 scale = Vector2( 1.45312, 1.48438 )
 texture = ExtResource( 8 )
 offset = Vector2( 1241.35, 2.73065 )
@@ -123,6 +123,7 @@ shape = SubResource( 3 )
 
 [node name="YSort" type="YSort" parent="."]
 
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]

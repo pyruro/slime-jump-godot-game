@@ -8,6 +8,9 @@ var seconds = 0
 
 func gameover():
 	$ScoreTimer.stop()
+	$Cuerda/AnimatedSprite.frame = 0
+	$Cuerda/AnimatedSprite.playing = false
+	$Cuerda.ciclo_salto = 0
 	$HUD.show_gameover()
 func new_game(): # se lanza al pulsar el botón de inicio
 	score = 0
@@ -52,3 +55,7 @@ func _on_ScoreTimer_timeout() -> void:
 	score += 1
 	$HUD.update_score(score)
 
+
+
+func _on_Player_hit() -> void:
+	gameover()
