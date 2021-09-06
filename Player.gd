@@ -16,12 +16,23 @@ onready var fall_gravity : float = ((-2.0 * jump_height) / (jump_time_to_descend
 
 var velocity = Vector2.ZERO
 
+var personaje_seleccionado = 0
+
+
 signal hit
 
 func _on_RopeDetector_area_entered(area: Area2D) -> void:
 	if area.name == 'Cuerda':
 		emit_signal("hit")
 		print("He chocado con la cuerda")
+
+func show_selected_pj():
+	if personaje_seleccionado == 1:
+		$Sprite.frame = 1
+	elif personaje_seleccionado == 2:
+		$Sprite.frame = 2
+	else:
+		$Sprite.frame = 0
 
 func lose_life():
 	pass
@@ -45,7 +56,8 @@ func jump():
 	$jump_sound.play()
 
 func _physics_process(delta: float) -> void:
-	get_input()
+	#get_input()
+	show_selected_pj()
 	velocity.y += get_gravity() * delta
 	velocity = move_and_slide(velocity, Vector2.UP)
 	if Input.is_action_just_pressed("jump"):

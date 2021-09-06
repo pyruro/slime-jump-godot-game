@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+onready var pj_seleccionado = 0
 signal start_game
 
 func show_message(text):
@@ -12,8 +13,9 @@ func show_gameover():
 	# Wait until the MessageTimer has counted down.
 	yield($MessageTimer, "timeout")
 	
-	$Message.text = "Jump Go!"
-	$Message.show()
+	$Message.text = "Jump!"
+	#$Message.show()
+	$JumpMessage.hide()
 	# Make a one-shot timer and wait for it to finish.
 	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
@@ -27,4 +29,28 @@ func _on_MessageTimer_timeout() -> void:
 
 func _on_StartButton_pressed() -> void:
 	$StartButton.hide()
+	$JumpMessage.show()
 	emit_signal("start_game")
+
+
+func _on_PauseButton_toggled(button_pressed: bool) -> void:
+	if $PauseButton.pressed:
+		get_tree().paused = true
+	else:
+		get_tree().paused = false
+
+
+func _on_charSelectButtonLeft_pressed() -> void:
+	if $slime_1.frame <= 2 and $slime_1.frame >= 0:
+		$slime_1.frame -= 1
+	else:
+		$slime_1.frame = 2
+	pj_seleccionado = $slime_1.frame
+
+
+func _on_charSelectButtonRight_pressed() -> void:
+	if $slime_1.frame <= 2 and $slime_1.frame >= 0:
+		$slime_1.frame += 1
+	else:
+		$slime_1.frame = 0
+	pj_seleccionado = $slime_1.frame

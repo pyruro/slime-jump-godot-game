@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/cc_soundtrack4.mp3-92bbed2623947e7f202e9029f1540ced.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/music/cc_soundtrack4.mp3"
+dest_files=[ "res://.import/cc_soundtrack4.mp3-92bbed2623947e7f202e9029f1540ced.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

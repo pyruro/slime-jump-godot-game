@@ -9,6 +9,7 @@ var seconds = 0
 func gameover():
 	$ScoreTimer.stop()
 	$Cuerda/AnimatedSprite.frame = 0
+	$Cuerda/CollisionShape2D.disabled = true
 	$Cuerda/AnimatedSprite.playing = false
 	$Cuerda.ciclo_salto = 0
 	$HUD.show_gameover()
@@ -17,6 +18,7 @@ func new_game(): # se lanza al pulsar el botón de inicio
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
+	$AudioStreamPlayer.play()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,6 +42,7 @@ func manage_difficulty(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	manage_difficulty(delta)
+	$Player.personaje_seleccionado = $HUD.pj_seleccionado
 	print($Cuerda/AnimatedSprite.speed_scale)
 	#difficulty_timer += delta
 	#seconds = difficulty_timer / 5
