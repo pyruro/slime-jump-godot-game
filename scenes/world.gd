@@ -66,7 +66,7 @@ func manage_difficulty(delta):
 func _process(delta: float) -> void:
 	manage_difficulty(delta)
 	$Player.personaje_seleccionado = $HUD.pj_seleccionado
-	print($Cuerda/AnimatedSprite.speed_scale)
+	#print($Cuerda/AnimatedSprite.speed_scale)
 	#difficulty_timer += delta
 	#seconds = difficulty_timer / 5
 	
