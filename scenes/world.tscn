@@ -73,4 +73,5 @@ stream = ExtResource( 8 )
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+[connection signal="jump_click" from="HUD" to="Player" method="_on_HUD_jump_click"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]

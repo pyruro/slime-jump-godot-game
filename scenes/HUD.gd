@@ -4,6 +4,9 @@ onready var pj_seleccionado = 0
 onready var variacion_volumen = 0
 onready var volumen = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
 signal start_game
+signal jump_click
+
+onready var puede_cambiar = true
 
 func show_message(text):
 	$Message.text = text
@@ -17,7 +20,8 @@ func show_gameover():
 	
 	$Message.text = "Jump!"
 	#$Message.show()
-	$JumpMessage.hide()
+	#$JumpMessage.hide()
+	$JumpButton.hide()
 	# Make a one-shot timer and wait for it to finish.
 	yield(get_tree().create_timer(1), "timeout")
 	$StartButton.show()
@@ -31,8 +35,10 @@ func _on_MessageTimer_timeout() -> void:
 
 func _on_StartButton_pressed() -> void:
 	$StartButton.hide()
-	$JumpMessage.show()
+	#$JumpMessage.show()
+	
 	emit_signal("start_game")
+	$JumpButton.show()
 
 
 func _on_PauseButton_toggled(button_pressed: bool) -> void:
@@ -43,19 +49,21 @@ func _on_PauseButton_toggled(button_pressed: bool) -> void:
 
 
 func _on_charSelectButtonLeft_pressed() -> void:
-	if $slime_1.frame <= 2 and $slime_1.frame >= 0:
-		$slime_1.frame -= 1
-	else:
-		$slime_1.frame = 2
-	pj_seleccionado = $slime_1.frame
+	if puede_cambiar:
+		if $slime_1.frame <= 2 and $slime_1.frame >= 0:
+			$slime_1.frame -= 1
+		else:
+			$slime_1.frame = 2
+		pj_seleccionado = $slime_1.frame
 
 
 func _on_charSelectButtonRight_pressed() -> void:
-	if $slime_1.frame <= 2 and $slime_1.frame >= 0:
-		$slime_1.frame += 1
-	else:
-		$slime_1.frame = 0
-	pj_seleccionado = $slime_1.frame
+	if puede_cambiar:
+		if $slime_1.frame <= 2 and $slime_1.frame >= 0:
+			$slime_1.frame += 1
+		else:
+			$slime_1.frame = 0
+		pj_seleccionado = $slime_1.frame
 
 
 func _on_volumeDownButton_pressed() -> void:
@@ -68,3 +76,7 @@ func _on_volumeUpButton_pressed() -> void:
 	if volumen < 0:
 		volumen = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")) + 10
 		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"),volumen)
+
+
+func _on_JumpButton_pressed() -> void:
+	emit_signal("jump_click")

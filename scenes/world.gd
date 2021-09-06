@@ -9,6 +9,8 @@ onready var random_value_1 = rand_range(1.5,3.5)
 onready var random_value_2 = rand_range(1.5,2.5)
 onready var random_value_3 = rand_range(2.5,3.5)
 
+onready var playing = false
+
 func gameover():
 	$ScoreTimer.stop()
 	$Cuerda/AnimatedSprite.frame = 0
@@ -16,6 +18,10 @@ func gameover():
 	$Cuerda/AnimatedSprite.playing = false
 	$Cuerda.ciclo_salto = 0
 	$HUD.show_gameover()
+	playing = false
+	$Player.puede_saltar = playing
+	$HUD.puede_cambiar = true
+	
 func new_game(): # se lanza al pulsar el botón de inicio
 	score = 0
 	randomize()
@@ -23,6 +29,10 @@ func new_game(): # se lanza al pulsar el botón de inicio
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
 	$AudioStreamPlayer.play()
+	yield(get_tree().create_timer(2), "timeout")
+	playing = true
+	$Player.puede_saltar = playing
+	$HUD.puede_cambiar = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

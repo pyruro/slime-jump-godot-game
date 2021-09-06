@@ -18,6 +18,7 @@ var velocity = Vector2.ZERO
 
 var personaje_seleccionado = 0
 
+onready var puede_saltar = false
 
 signal hit
 
@@ -65,8 +66,9 @@ func get_gravity() -> float:
 	return jump_gravity if velocity.y < 0.0 else fall_gravity
 
 func jump():
-	velocity.y = jump_velocity
-	$jump_sound.play()
+	if puede_saltar:
+		velocity.y = jump_velocity
+		$jump_sound.play()
 
 func _physics_process(delta: float) -> void:
 	#get_input()
@@ -82,3 +84,8 @@ func _physics_process(delta: float) -> void:
 
 
 
+
+
+func _on_HUD_jump_click() -> void:
+	if is_on_floor():
+		jump()
