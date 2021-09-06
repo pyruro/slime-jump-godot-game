@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 onready var pj_seleccionado = 0
+onready var variacion_volumen = 0
+onready var volumen = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master"))
 signal start_game
 
 func show_message(text):
@@ -54,3 +56,15 @@ func _on_charSelectButtonRight_pressed() -> void:
 	else:
 		$slime_1.frame = 0
 	pj_seleccionado = $slime_1.frame
+
+
+func _on_volumeDownButton_pressed() -> void:
+	if volumen >= -80:
+		volumen = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")) - 10
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"),volumen)
+	print(volumen)
+
+func _on_volumeUpButton_pressed() -> void:
+	if volumen < 0:
+		volumen = AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")) + 10
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"),volumen)

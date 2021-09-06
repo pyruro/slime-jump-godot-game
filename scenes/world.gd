@@ -5,6 +5,9 @@ var difficulty_timer = 0
 var increase_diff = 0
 var seconds = 0
 
+onready var random_value_1 = rand_range(1.5,3.5)
+onready var random_value_2 = rand_range(1.5,2.5)
+onready var random_value_3 = rand_range(2.5,3.5)
 
 func gameover():
 	$ScoreTimer.stop()
@@ -15,6 +18,7 @@ func gameover():
 	$HUD.show_gameover()
 func new_game(): # se lanza al pulsar el botón de inicio
 	score = 0
+	randomize()
 	$StartTimer.start()
 	$HUD.update_score(score)
 	$HUD.show_message("Get Ready")
@@ -27,15 +31,24 @@ func _ready() -> void:
 
 func manage_difficulty(delta):
 	if $Cuerda.ciclo_salto > 1 and $Cuerda.ciclo_salto < 25:
-		$Cuerda/AnimatedSprite.speed_scale += delta/60
+		$Cuerda/AnimatedSprite.speed_scale += delta/40
 	elif $Cuerda.ciclo_salto >= 25 and $Cuerda.ciclo_salto < 35:
 		$Cuerda/AnimatedSprite.speed_scale = 2
 	elif $Cuerda.ciclo_salto >= 35 and $Cuerda.ciclo_salto < 45:
 		$Cuerda/AnimatedSprite.speed_scale = 1.5
 	elif $Cuerda.ciclo_salto >= 45 and $Cuerda.ciclo_salto < 75:
 		$Cuerda/AnimatedSprite.speed_scale = 2.5
-	elif $Cuerda.ciclo_salto >= 75 and $Cuerda.ciclo_salto < 101:
-		$Cuerda/AnimatedSprite.speed_scale = rand_range(1.5,2.5)
+	elif $Cuerda.ciclo_salto >= 75 and $Cuerda.ciclo_salto < 80:
+		$Cuerda/AnimatedSprite.speed_scale = random_value_1
+	elif $Cuerda.ciclo_salto >= 80 and $Cuerda.ciclo_salto < 95:
+		$Cuerda/AnimatedSprite.speed_scale = random_value_2
+	elif $Cuerda.ciclo_salto >= 95 and $Cuerda.ciclo_salto < 110:
+		$Cuerda/AnimatedSprite.speed_scale = random_value_3
+	elif $Cuerda.ciclo_salto >= 110:
+		if $Cuerda/AnimatedSprite.speed_scale < 5:
+			$Cuerda/AnimatedSprite.speed_scale += delta/40
+		else:
+			$Cuerda/AnimatedSprite.speed_scale = 5
 	else:
 		$Cuerda/AnimatedSprite.speed_scale = 1
 

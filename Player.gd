@@ -24,15 +24,28 @@ signal hit
 func _on_RopeDetector_area_entered(area: Area2D) -> void:
 	if area.name == 'Cuerda':
 		emit_signal("hit")
-		print("He chocado con la cuerda")
 
 func show_selected_pj():
 	if personaje_seleccionado == 1:
 		$Sprite.frame = 1
+		jump_height = 100
+		jump_time_to_peak = 0.3
+		jump_time_to_descend = 0.1
 	elif personaje_seleccionado == 2:
 		$Sprite.frame = 2
+		jump_height = 150
+		jump_time_to_peak = 0.1
+		jump_time_to_descend = 0.3
 	else:
 		$Sprite.frame = 0
+		jump_height = 150
+		jump_time_to_peak = 0.3
+		jump_time_to_descend = 0.4
+		
+	jump_velocity = ((2.0 * jump_height) / jump_time_to_peak) * -1.0
+	jump_gravity = ((-2.0 * jump_height) / (jump_time_to_peak * jump_time_to_peak)) * -1.0
+	fall_gravity = ((-2.0 * jump_height) / (jump_time_to_descend * jump_time_to_descend)) * -1.0
+
 
 func lose_life():
 	pass
